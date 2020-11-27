@@ -3,24 +3,33 @@
     <small class="text-muted">@{{ user.username }}</small>
     <b-form class="ld-over" :class="{ running: sending }" @submit.prevent="onSubmit">
       <div class="ld ld-ring ld-spin" />
-      <b-alert variant="danger" :show="hasError">
+      <!-- <b-alert variant="danger" :show="hasError">
         {{ error }}
-      </b-alert>
-      <b-form-group>
-        <b-form-input
-          id="message-input"
-          v-model="message"
-          type="text"
-          placeholder="Enter Message"
-          autocomplete="off"
-          required
-        />
-      </b-form-group>
-      <div class="clearfix">
-        <b-button type="submit" variant="primary" class="float-right">
-          Send
-        </b-button>
-      </div>
+      </b-alert> -->
+      <b-row>
+        <b-col cols="12">
+          <b-input-group>
+            <b-form-textarea
+              id="message-input"
+              v-model="message"
+              type="text"
+              placeholder="Enter Message"
+              autocomplete="off"
+              required
+            />
+            <b-input-group-append>
+              <b-button variant="outline-primary">
+                <b-icon icon="reply" />
+              </b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-col>
+        <!-- <b-col cols="2"> -->
+        <!-- <b-button type="submit" variant="primary" class="float-right">
+            Send
+          </b-button> -->
+        <!-- </b-col> -->
+      </b-row>
     </b-form>
   </div>
 </template>

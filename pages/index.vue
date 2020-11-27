@@ -17,7 +17,7 @@
 
           <b-container>
             <b-row>
-              <b-col tag="b-card" class="sending-box">
+              <b-col tag="b-card">
                 <MessageForm />
               </b-col>
             </b-row>

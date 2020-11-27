@@ -1,26 +1,35 @@
 <template>
   <b-card border-variant="light" class="message-list shadow-sm">
-    <h4>Messages</h4>
+    <!-- <b-list-group-item> -->
+    <div>
+      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+      <b>
+        Jack Sparrow
+      </b>
+    </div>
+
+    <b-badge
+      variant="success"
+      pill
+    >
+      online!
+    </b-badge>
+    <!-- </b-list-group-item> -->
     <hr>
     <div id="chat-messages" v-chat-scroll="{smooth: true}" class="message-group">
       <div v-for="(message, index) in messages" :key="index" class="message">
-        <div class="clearfix">
-          <div class="d-flex justify-content-start w-50">
-            <!--
-              Todo: after getting current user info and all messages
-              set conditional rendering for each element like this
-              example:
-              v-if="message.user === user.id"
-              for the b-avatar and the message date
-            -->
-            <b-avatar :text="message.avatar" class="mr-3" />
-            <b-card bg-variant="primary" text-variant="white" class="rounded-lg mr-1">
-              {{ message.text }}
-            </b-card>
-            <!-- <b-avatar v-if="message.user !== user.id" :text="message.avatar" class="mr-3" /> -->
-            <div class="clearfix">
-              <small class="text-muted float-right">{{ message.date }}</small>
+        <div class="chat-message-right pb-4 d-flex">
+          <div class="mr-2">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+            <div class="text-muted small text-nowrap mt-2">
+              2:33 am
             </div>
+          </div>
+          <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+            <div class="font-weight-bold mb-1">
+              You
+            </div>
+            Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
           </div>
         </div>
       </div>
@@ -48,7 +57,7 @@ export default {
 }
 
 .message-group {
-  height: 42vh !important;
+  max-height: 430px !important;
   overflow-y: scroll;
 }
 .message {

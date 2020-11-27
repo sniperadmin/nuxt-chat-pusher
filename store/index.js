@@ -11,9 +11,71 @@ export const state = () => ({
   error: 'Test Error',
   user: {},
   reconnect: false,
-  activeRoom: null,
-  rooms: [],
-  users: [],
+  activeRoom: { id: '123' },
+  rooms: [
+    {
+      id: '123',
+      name: 'Ships',
+      max_users: 2
+    },
+    {
+      id: '124',
+      name: 'Treasure',
+      max_users: 2
+    }
+  ],
+  users: [
+    {
+      username: 'Jack',
+      name: 'Jack Sparrow',
+      presence: 'online'
+    },
+    {
+      username: 'Barbossa',
+      name: 'Hector Barbossa',
+      presence: 'offline'
+    },
+    {
+      username: 'Jack',
+      name: 'Jack Sparrow',
+      presence: 'online'
+    },
+    {
+      username: 'Barbossa',
+      name: 'Hector Barbossa',
+      presence: 'offline'
+    },
+    {
+      username: 'Jack',
+      name: 'Jack Sparrow',
+      presence: 'online'
+    },
+    {
+      username: 'Barbossa',
+      name: 'Hector Barbossa',
+      presence: 'offline'
+    },
+    {
+      username: 'Jack',
+      name: 'Jack Sparrow',
+      presence: 'online'
+    },
+    {
+      username: 'Barbossa',
+      name: 'Hector Barbossa',
+      presence: 'offline'
+    },
+    {
+      username: 'Jack',
+      name: 'Jack Sparrow',
+      presence: 'online'
+    },
+    {
+      username: 'Barbossa',
+      name: 'Hector Barbossa',
+      presence: 'offline'
+    }
+  ],
   messages: [
     {
       username: 'Jack',
