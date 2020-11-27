@@ -45,6 +45,7 @@ export default {
     ...mapGetters([
       'hasError'
     ])
-  }
+  },
+  method: {}
 }
 </script>

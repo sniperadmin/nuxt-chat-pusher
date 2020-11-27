@@ -1,6 +1,34 @@
 <template>
   <b-card border-variant="light" class="h-100 shadow-sm">
     <div class="room-list">
+      <b-card class="flex-column" border-variant="light">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <b-dropdown variant="link" toggle-class="text-decoration-none" no-caret>
+            <template #button-content>
+              <b-avatar
+                badge
+                badge-variant="warning"
+                button
+                variant="primary"
+                text="FF"
+              />
+            </template>
+            <b-dropdown-item disabled>
+              set Invisible
+            </b-dropdown-item>
+          </b-dropdown>
+          Some name
+
+          <b-dropdown variant="link" toggle-class="text-decoration-none" no-caret>
+            <template #button-content>
+              <b-icon icon="three-dots-vertical" />
+            </template>
+            <b-dropdown-item disabled>
+              exit
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </b-card>
       <h4>Channels</h4>
       <hr>
       <b-list-group v-if="activeRoom">

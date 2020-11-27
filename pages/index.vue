@@ -37,7 +37,8 @@ export default {
     ...mapState([
       'loading'
     ])
-  }
+  },
+  methods: {}
 }
 </script>
 <style>

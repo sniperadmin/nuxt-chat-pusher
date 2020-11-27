@@ -14,7 +14,50 @@ export const state = () => ({
   activeRoom: null,
   rooms: [],
   users: [],
-  messages: [],
+  messages: [
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '11/12/1644',
+      text: 'Not all treasure is silver and gold mate'
+    },
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'If you were waiting for the opportune moment, that was it'
+    },
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'If you were waiting for the opportune moment, that was it'
+    },
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'If you were waiting for the opportune moment, that was it'
+    },
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'If you were waiting for the opportune moment, that was it'
+    },
+    {
+      username: 'Jack',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'If you were waiting for the opportune moment, that was it'
+    },
+    {
+      username: 'Hector',
+      avatar: 'ss',
+      date: '12/12/1644',
+      text: 'You know Jack, I thought I had you figured out'
+    }
+  ],
   userTyping: null
 })
 
@@ -96,5 +139,9 @@ export const actions = {
     } finally {
       commit('SET_LOADING', false)
     }
+  },
+  subscribeRoom ({ commit }, roomId) {
+    commit('CLEAR_CHAT_ROOM')
+    // const roomConnect = await pusher.subscribe(roomId)
   }
 }
