@@ -33,6 +33,15 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Chat',
+  async asyncData ({ $pusher }) {
+    const channel = await $pusher.subscribe('test')
+    channel.bind('my-event', (data) => {
+      console.log('aodifhoa', data)
+    })
+  },
+  data () {
+    return {}
+  },
   computed: {
     ...mapState([
       'loading'

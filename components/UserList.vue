@@ -3,7 +3,7 @@
     <h4>Members</h4>
     <hr>
     <b-list-group>
-      <b-list-group-item v-for="user in users" :key="user.username">
+      <b-list-group-item v-for="(user, i) in users" :key="i">
         {{ user.name }}
         <b-badge
           v-if="user.presence"

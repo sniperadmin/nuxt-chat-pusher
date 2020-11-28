@@ -18,7 +18,7 @@
               required
             />
             <b-input-group-append>
-              <b-button variant="outline-primary">
+              <b-button variant="outline-primary" @click="sendMsg">
                 <b-icon icon="reply" />
               </b-button>
             </b-input-group-append>
@@ -39,6 +39,12 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'MessageForm',
+  props: {
+    channel: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {
       message: ''
@@ -55,6 +61,12 @@ export default {
       'hasError'
     ])
   },
-  method: {}
+  methods: {
+    async sendMsg () {
+      await this.$axios.post('http://localhost:5000/messages', { message: this.message })
+        .then(d => console.log(d.data))
+        .catch()
+    }
+  }
 }
 </script>

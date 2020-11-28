@@ -23,8 +23,13 @@ app.post('/pusher/auth', function (req, res) {
   res.send(auth)
 })
 
-pusher.trigger('test', 'my-event', {
-  message: 'hello world'
+app.post('/messages', (req, res) => {
+  pusher.trigger('test', 'my-event', {
+    message: req.body.message
+  })
+  // record message in DB
+  // .....
+  res.send(req.body)
 })
 
 const port = process.env.PORT || 5000

@@ -30,7 +30,7 @@
       <h4>Members</h4>
       <hr>
       <b-list-group v-chat-scroll="{smooth: true}" style="max-height: 350px; overflow-y: scroll;">
-        <b-list-group-item v-for="user in users" :key="user.username" class="p-1">
+        <b-list-group-item v-for="(user, i) in users" :key="i" class="p-1">
           <div>
             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
             <b>
