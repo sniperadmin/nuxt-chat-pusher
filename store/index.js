@@ -1,9 +1,9 @@
-import Pusher from 'pusher-js'
+// import Pusher from 'pusher-js'
 
-const pusher = new Pusher('4500eeb8bc222910669f', {
-  cluster: 'eu',
-  authEndpoint: 'http://localhost:5000/pusher/auth'
-})
+// const pusher = new Pusher('4500eeb8bc222910669f', {
+//   cluster: 'eu',
+//   authEndpoint: 'http://localhost:5000/pusher/auth'
+// })
 
 export const state = () => ({
   loading: false,
@@ -186,13 +186,18 @@ export const actions = {
       commit('SET_ERROR', '')
       commit('SET_LOADING', true)
 
-      const getTicket = await pusher.subscribe('private-test')
+      // console.log('store sais: ', this.$pusher)
+      const channel = await this.$pusher.subscribe('test')
+      channel.bind('my-event', (data) => {
+        console.log('messages: ', data)
+      })
       const obj = {
-        socket_id: getTicket.pusher.connection.connection.id,
-        channel_name: getTicket.name
+        socket_id: channel.pusher.connection.connection.id,
+        channel_name: channel.name
       }
 
       const getAuth = await this.$axios.post('http://localhost:5000/pusher/auth', obj)
+      console.log(getAuth)
 
       commit('SET_USER', { auth: getAuth.data.auth })
       commit('SET_RECONNECT', false)

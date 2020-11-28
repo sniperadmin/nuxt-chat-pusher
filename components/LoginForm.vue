@@ -60,10 +60,13 @@ export default {
     ])
   },
   methods: {
-    async onSubmit () {
-      const res = await this.$store.dispatch('login')
-      if (res) {
-        this.$router.push('/')
+    onSubmit () {
+      try {
+        this.$store.dispatch('login')
+        // console.log(this.$pusher)
+        // this.$router.push('/')
+      } catch (error) {
+        console.warn(error)
       }
     }
   }

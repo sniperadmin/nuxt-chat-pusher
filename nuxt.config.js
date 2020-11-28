@@ -1,3 +1,5 @@
+const client = require('pusher-js');
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -18,7 +20,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    // '~/plugins/pusher.js'
+    '~/plugins/pusher.js',
     '~/plugins/chatScroll.js'
   ],
 
@@ -32,12 +34,21 @@ export default {
     [
       '@nuxtjs/laravel-echo',
       { /* module options */
-        brodcaster: 'pusher'
-        // key: secretKey,
+        brodcaster: 'pusher',
+        key: '4500eeb8bc222910669f',
+        cluster: 'eu',
+        encrypted: true,
+        authEndpoint: 'http://localhost:5000/pusher/auth',
+        client,
+        auth: {
+          headers: {
+            Authorization: null
+          }
+        }
         // wsHost: socketUrl,
         // wsPort: port,
         // disableStats: true,
-        // forceTLS: false
+        // forceTLS: true
       }
     ]
   ],
