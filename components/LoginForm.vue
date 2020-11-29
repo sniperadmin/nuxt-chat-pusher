@@ -13,15 +13,14 @@
         id="userInputGroup"
         label-for="userInput"
       >
-        <!-- <b-form-input
+        <b-form-input
           id="userInput"
           v-model="userId"
           type="text"
           placeholder="Enter user name"
           autocomplete="off"
           required
-          disabled
-        /> -->
+        />
       </b-form-group>
 
       <b-button
@@ -62,9 +61,9 @@ export default {
   methods: {
     onSubmit () {
       try {
-        this.$store.dispatch('login')
+        this.$store.dispatch('login', this.userId)
         // console.log(this.$pusher)
-        // this.$router.push('/')
+        this.$router.push('/')
       } catch (error) {
         console.warn(error)
       }

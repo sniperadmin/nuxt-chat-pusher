@@ -29,7 +29,7 @@
             <div class="font-weight-bold mb-1">
               You
             </div>
-            Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
+            {{ message.text }}
           </div>
         </div>
       </div>

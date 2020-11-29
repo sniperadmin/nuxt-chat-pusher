@@ -63,9 +63,11 @@ export default {
   },
   methods: {
     async sendMsg () {
-      await this.$axios.post('http://localhost:5000/messages', { message: this.message })
-        .then(d => console.log(d.data))
-        .catch()
+      this.$echo.channel('test').listen('sendMessage', (e) => {
+        console.log('echo: ', e)
+      })
+      await this.$store.dispatch('sendMessage', this.message)
+      this.message = ''
     }
   }
 }

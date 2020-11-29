@@ -5,7 +5,7 @@
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
       <b-nav-text>{{ user.name }} | </b-nav-text>
-      <b-nav-item href="#" active>
+      <b-nav-item @click="disconnect">
         Logout
       </b-nav-item>
     </b-navbar-nav>
@@ -21,6 +21,13 @@ export default {
     ...mapState([
       'user'
     ])
+  },
+  methods: {
+    disconnect () {
+      this.$pusher.disconnect()
+      this.$store.dispatch('disconnect')
+      this.$router.push('/login')
+    }
   }
 }
 </script>

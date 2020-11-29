@@ -11,114 +11,74 @@ export const state = () => ({
   error: 'Test Error',
   user: {},
   reconnect: false,
-  activeRoom: { id: '123' },
+  disconnect: false,
+  activeRoom: null,
   rooms: [
-    {
-      id: '123',
-      name: 'Ships',
-      max_users: 2
-    },
-    {
-      id: '124',
-      name: 'Treasure',
-      max_users: 2
-    }
+    // {
+    //   id: '123',
+    //   name: 'Ships',
+    //   max_users: 2
+    // }
   ],
   users: [
-    {
-      username: 'Jack',
-      name: 'Jack Sparrow',
-      presence: 'online'
-    },
-    {
-      username: 'Barbossa',
-      name: 'Hector Barbossa',
-      presence: 'offline'
-    },
-    {
-      username: 'Jack',
-      name: 'Jack Sparrow',
-      presence: 'online'
-    },
-    {
-      username: 'Barbossa',
-      name: 'Hector Barbossa',
-      presence: 'offline'
-    },
-    {
-      username: 'Jack',
-      name: 'Jack Sparrow',
-      presence: 'online'
-    },
-    {
-      username: 'Barbossa',
-      name: 'Hector Barbossa',
-      presence: 'offline'
-    },
-    {
-      username: 'Jack',
-      name: 'Jack Sparrow',
-      presence: 'online'
-    },
-    {
-      username: 'Barbossa',
-      name: 'Hector Barbossa',
-      presence: 'offline'
-    },
-    {
-      username: 'Jack',
-      name: 'Jack Sparrow',
-      presence: 'online'
-    },
-    {
-      username: 'Barbossa',
-      name: 'Hector Barbossa',
-      presence: 'offline'
-    }
+    // {
+    //   username: 'Jack',
+    //   name: 'Jack Sparrow',
+    //   presence: 'online'
+    // },
+    // {
+    //   username: 'Barbossa',
+    //   name: 'Hector Barbossa',
+    //   presence: 'offline'
+    // },
+    // {
+    //   username: 'Jack',
+    //   name: 'Jack Sparrow',
+    //   presence: 'online'
+    // },
+    // {
+    //   username: 'Barbossa',
+    //   name: 'Hector Barbossa',
+    //   presence: 'offline'
+    // },
+    // {
+    //   username: 'Jack',
+    //   name: 'Jack Sparrow',
+    //   presence: 'online'
+    // },
+    // {
+    //   username: 'Barbossa',
+    //   name: 'Hector Barbossa',
+    //   presence: 'offline'
+    // },
+    // {
+    //   username: 'Jack',
+    //   name: 'Jack Sparrow',
+    //   presence: 'online'
+    // },
+    // {
+    //   username: 'Barbossa',
+    //   name: 'Hector Barbossa',
+    //   presence: 'offline'
+    // },
+    // {
+    //   username: 'Jack',
+    //   name: 'Jack Sparrow',
+    //   presence: 'online'
+    // },
+    // {
+    //   username: 'Barbossa',
+    //   name: 'Hector Barbossa',
+    //   presence: 'offline'
+    // }
   ],
   messages: [
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '11/12/1644',
-      text: 'Not all treasure is silver and gold mate'
-    },
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'If you were waiting for the opportune moment, that was it'
-    },
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'If you were waiting for the opportune moment, that was it'
-    },
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'If you were waiting for the opportune moment, that was it'
-    },
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'If you were waiting for the opportune moment, that was it'
-    },
-    {
-      username: 'Jack',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'If you were waiting for the opportune moment, that was it'
-    },
-    {
-      username: 'Hector',
-      avatar: 'ss',
-      date: '12/12/1644',
-      text: 'You know Jack, I thought I had you figured out'
-    }
+    // {
+    //   username: 'Jack',
+    //   avatar: 'ss',
+    //   date: '11/12/1644',
+    //   text: 'Not all treasure is silver and gold mate'
+    // }
   ],
   userTyping: null
 })
@@ -140,6 +100,13 @@ export const mutations = {
   SET_RECONNECT (state, reconnect) {
     state.reconnect = reconnect
   },
+  SET_DISCONNECT (state) {
+    state.disconnect = true
+    state.error = null
+    state.messages = []
+    state.rooms = []
+    state.user.presence = 'offline'
+  },
   SET_ACTIVE_ROOM (state, activeRoom) {
     state.activeRoom = activeRoom
   },
@@ -148,6 +115,9 @@ export const mutations = {
   },
   SET_ALL_USERS (state, users) {
     state.users = users
+  },
+  ADD_USER (state, user) {
+    state.users.push(user)
   },
   CLEAR_CHAT_ROOM (state) {
     state.users = []
@@ -181,7 +151,7 @@ function handleError (commit, error) {
 }
 
 export const actions = {
-  async login ({ commit, state }) {
+  async login ({ commit, state }, userId) {
     try {
       commit('SET_ERROR', '')
       commit('SET_LOADING', true)
@@ -193,22 +163,51 @@ export const actions = {
       })
       const obj = {
         socket_id: channel.pusher.connection.connection.id,
-        channel_name: channel.name
+        channel_name: channel.name,
+        presenseData: {
+          user_id: userId,
+          presence: 'online',
+          user_info: {
+            name: 'Mr Meow',
+            twitter_id: '@pusher'
+          }
+        }
       }
 
       const getAuth = await this.$axios.post('http://localhost:5000/pusher/auth', obj)
       console.log(getAuth)
 
-      commit('SET_USER', { auth: getAuth.data.auth })
+      const allChannels = await this.$pusher.allChannels()
+
+      commit('SET_USER', { auth: getAuth.data.auth, ...obj.presenseData })
+      commit('ADD_USER', { auth: getAuth.data.auth, ...obj.presenseData })
+      commit('SET_ACTIVE_ROOM', { id: obj.channel_name })
+      commit('SET_ROOMS', allChannels)
       commit('SET_RECONNECT', false)
+      commit('')
     } catch (error) {
       handleError(commit, error)
     } finally {
       commit('SET_LOADING', false)
     }
   },
+  // getAllChannels ({ commit }) {
+
+  // },
   subscribeRoom ({ commit }, roomId) {
     commit('CLEAR_CHAT_ROOM')
     // const roomConnect = await pusher.subscribe(roomId)
+  },
+  async sendMessage ({ commit }, messagePayload) {
+    try {
+      const message = await this.$axios.post('http://localhost:5000/messages', { text: messagePayload })
+      console.log('message', message)
+      commit('ADD_MESSAGE', message.data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  disconnect ({ commit }) {
+    commit('SET_DISCONNECT')
   }
 }

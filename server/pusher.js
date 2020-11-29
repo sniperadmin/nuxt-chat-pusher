@@ -19,13 +19,17 @@ app.use(cors())
 app.post('/pusher/auth', function (req, res) {
   const socketId = req.body.socket_id
   const channel = req.body.channel_name
-  const auth = pusher.authenticate(socketId, channel)
+  // presense data here
+
+  const presenseData = req.body.presenseData
+
+  const auth = pusher.authenticate(socketId, channel, presenseData)
   res.send(auth)
 })
 
 app.post('/messages', (req, res) => {
   pusher.trigger('test', 'my-event', {
-    message: req.body.message
+    text: req.body.message
   })
   // record message in DB
   // .....

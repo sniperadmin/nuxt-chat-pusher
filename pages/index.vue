@@ -42,6 +42,11 @@ export default {
   data () {
     return {}
   },
+  async mounted () {
+    const allChannels = await this.$pusher.allChannels()
+    console.log(allChannels)
+    this.$pusher.connection.bind('connected', d => console.log('connected: '))
+  },
   computed: {
     ...mapState([
       'loading'
