@@ -34,7 +34,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Chat',
   async asyncData ({ $pusher }) {
-    const channel = await $pusher.subscribe('test')
+    const channel = await $pusher.subscribe('private-chat')
     channel.bind('my-event', (data) => {
       console.log('aodifhoa', data)
     })

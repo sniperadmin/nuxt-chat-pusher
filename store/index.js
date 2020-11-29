@@ -157,7 +157,7 @@ export const actions = {
       commit('SET_LOADING', true)
 
       // console.log('store sais: ', this.$pusher)
-      const channel = await this.$pusher.subscribe('test')
+      const channel = await this.$pusher.subscribe('private-chat')
       channel.bind('my-event', (data) => {
         console.log('messages: ', data)
       })

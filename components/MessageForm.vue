@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     async sendMsg () {
-      this.$echo.channel('test').listen('sendMessage', (e) => {
+      this.$echo.channel('private-chat').listen('sendMessage', (e) => {
         console.log('echo: ', e)
       })
       await this.$store.dispatch('sendMessage', this.message)
